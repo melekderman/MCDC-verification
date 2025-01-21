@@ -1,0 +1,54 @@
+azurv1_sub:
+    logN_min: 5
+    logN_max: 7
+    N_runs: 7
+
+azurv1:
+    logN_min: 5
+    logN_max: 7
+    N_runs: 7
+
+azurv1_super:
+    logN_min: 5
+    logN_max: 7
+    N_runs: 7
+
+azurv1_census_sub:
+    logN_min: 5
+    logN_max: 7
+    N_runs: 7
+
+azurv1_census:
+    logN_min: 5
+    logN_max: 7
+    N_runs: 7
+
+azurv1_census_super:
+    logN_min: 5
+    logN_max: 7
+    N_runs: 7
+
+slab_absorbium:
+    logN_min: 5
+    logN_max: 7
+    N_runs: 7
+
+slab_isobeam_td_census:
+    logN_min: 5
+    logN_max: 7
+    N_runs: 7
+
+slab_isobeam_td:
+    logN_min: 5
+    logN_max: 7
+    N_runs: 7
+
+inf_shem361:
+    logN_min: 5
+    logN_max: 7
+    N_runs: 7
+
+inf_shem361_td:
+    logN_min: 5
+    logN_max: 7
+    N_runs: 7
