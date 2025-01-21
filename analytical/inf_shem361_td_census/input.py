@@ -59,6 +59,8 @@ mcdc.tally.mesh_tally(
 
 # Setting
 mcdc.setting(N_particle=1000, N_batch=10, active_bank_buff=10000)
+mcdc.time_census(np.logspace(-5, 1, 6))
+mcdc.population_control()
 
 # Run
 mcdc.run()
