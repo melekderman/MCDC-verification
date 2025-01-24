@@ -1,5 +1,5 @@
 tmp
-submit_job.pbs
+*.pbs
 __pycache__
 output*
 results
