@@ -34,13 +34,13 @@ c5 = mcdc.cell(+s5 & -s6, m5)
 mcdc.source(
     x=[0.0, 2.0],
     isotropic=True,
-    prob=50.0
+    prob=0.98
 )
 
 mcdc.source(
     x=[5.0, 6.0],
     isotropic=True,
-    prob=1.0
+    prob=0.02
 )
 
 # =============================================================================
@@ -50,11 +50,11 @@ mcdc.source(
 #Tally
 mcdc.tally.mesh_tally(
     scores=["flux"],
-    x=np.linspace(0.0, 8.0, 40)
+    x=np.linspace(0.0, 8.0, 81)
 )
 
 #Setting
-mcdc.setting(N_particle=1000, N_batch=10)
+mcdc.setting(N_particle=1000, N_batch=20)
 
 #Run
 mcdc.run()
