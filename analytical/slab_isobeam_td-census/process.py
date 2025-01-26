@@ -11,11 +11,10 @@ import tool
 N_min = int(sys.argv[1])
 N_max = int(sys.argv[2])
 N = int(sys.argv[3])
-platform = sys.argv[4]
 N_particle_list = np.logspace(N_min, N_max, N)
 
 # Reference solution
-with h5py.File("output_%s_%i.h5" % (platform, int(N_particle_list[0])), "r") as f:
+with h5py.File("output_%i.h5" % (int(N_particle_list[0])), "r") as f:
     x = f["tallies/mesh_tally_0/grid/x"][:]
     t = f["tallies/mesh_tally_0/grid/t"][:]
 phi_ref = reference(x, t)
@@ -27,7 +26,7 @@ error_max = np.zeros(len(N_particle_list))
 # Calculate error
 for i, N_particle in enumerate(N_particle_list):
     # Get results
-    with h5py.File("output_%s_%i.h5" % (platform, int(N_particle)), "r") as f:
+    with h5py.File("output_%i.h5" % (int(N_particle)), "r") as f:
         x = f["tallies/mesh_tally_0/grid/x"][:]
         t = f["tallies/mesh_tally_0/grid/t"][:]
         K = len(t) - 1

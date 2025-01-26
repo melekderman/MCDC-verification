@@ -10,7 +10,6 @@ import tool
 N_min = int(sys.argv[1])
 N_max = int(sys.argv[2])
 N = int(sys.argv[3])
-platform = sys.argv[4]
 N_particle_list = np.logspace(N_min, N_max, N)
 
 # Reference solution
@@ -34,7 +33,7 @@ for i, N_particle in enumerate(N_particle_list):
         speed = data["v"]
         E_mid = 0.5 * (E[1:] + E[:-1])
         dE = E[1:] - E[:-1]
-    with h5py.File("output_%s_%i.h5" % (platform, int(N_particle)), "r") as f:
+    with h5py.File("output_%i.h5" % (int(N_particle)), "r") as f:
         t = f["tallies/mesh_tally_0/grid/t"][:]
         dt = t[1:] - t[:-1]
         K = len(t) - 1
