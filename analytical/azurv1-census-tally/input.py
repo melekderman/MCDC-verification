@@ -11,7 +11,7 @@ m = mcdc.material(
     capture=np.array([1.0 / 3.0]),
     scatter=np.array([[1.0 / 3.0]]),
     fission=np.array([1.0 / 3.0]),
-    nu_p=np.array([1.7]),
+    nu_p=np.array([2.0]),
 )
 
 # Surfaces
@@ -41,8 +41,8 @@ mcdc.tally.mesh_tally(
 )
 
 # Setting
-mcdc.setting(N_particle=1e5)
-mcdc.time_census(np.linspace(0.0, 20.0, 21)[1:])
+mcdc.setting(N_particle=1e4, N_batch=10)
+mcdc.time_census(np.linspace(0.0, 20.0, 5)[1:], tally_frequency=5)
 mcdc.population_control()
 
 # Run

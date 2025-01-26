@@ -7,7 +7,7 @@ from scipy.integrate import quad
 # =============================================================================
 
 # Scattering ratio
-c = 0.9
+c = 1.0
 i = complex(0, 1)
 
 # Spatial grid
