@@ -10,8 +10,8 @@ import numpy as np
 m1 = mcdc.material(capture=np.array([50.0]), scatter=np.array([[0.0]]))
 m2 = mcdc.material(capture=np.array([5.0]), scatter=np.array([[0.0]]))
 m3 = mcdc.material(capture=np.array([0.0]), scatter=np.array([[0.0]]))
-m4 = mcdc.material(capture=np.array([1.0]), scatter=np.array([[0.9]]))
-m5 = mcdc.material(capture=np.array([1.0]), scatter=np.array([[0.9]]))
+m4 = mcdc.material(capture=np.array([0.1]), scatter=np.array([[0.9]]))
+m5 = mcdc.material(capture=np.array([0.1]), scatter=np.array([[0.9]]))
 
 #Set surfaces
 s1 = mcdc.surface("plane-x", x=0.0, bc='reflective')
@@ -34,13 +34,13 @@ c5 = mcdc.cell(+s5 & -s6, m5)
 mcdc.source(
     x=[0.0, 2.0],
     isotropic=True,
-    prob=0.98
+    prob=50.0
 )
 
 mcdc.source(
     x=[5.0, 6.0],
     isotropic=True,
-    prob=0.02
+    prob=1.0
 )
 
 # =============================================================================
@@ -50,7 +50,8 @@ mcdc.source(
 #Tally
 mcdc.tally.mesh_tally(
     scores=["flux"],
-    x=np.linspace(0.0, 8.0, 81)
+    x=np.linspace(0.0, 8.0, 81),
+    mu=np.linspace(-1.0, 1.0, 5)
 )
 
 #Setting
