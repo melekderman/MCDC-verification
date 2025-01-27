@@ -11,7 +11,6 @@ import tool
 N_min = int(sys.argv[1])
 N_max = int(sys.argv[2])
 N = int(sys.argv[3])
-platform = sys.argv[4]
 N_particle_list = np.logspace(N_min, N_max, N)
 
 # Reference solution
@@ -24,7 +23,7 @@ error_max = np.zeros(len(N_particle_list))
 # Calculate error
 for k, N_particle in enumerate(N_particle_list):
     # Get results
-    with h5py.File("output_%s_%i.h5" % (platform, int(N_particle)), "r") as f:
+    with h5py.File("output_%i.h5" % (int(N_particle)), "r") as f:
         phi = f["tallies/mesh_tally_0/flux/mean"][:]
 
     error[k] = tool.rerror(phi, phi_ref)

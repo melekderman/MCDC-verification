@@ -8,6 +8,7 @@ parser.add_argument("--mpirun", type=int, default=0)
 args, unargs = parser.parse_known_args()
 
 # Get the MPI option
+mpi_option = ""
 if args.srun > 0 or args.mpiexec > 0 or args.mpirun > 0:
     if args.srun > 1:
         mpi_option = "--srun=%i" % args.srun
