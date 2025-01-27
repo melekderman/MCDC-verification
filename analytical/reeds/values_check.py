@@ -11,7 +11,6 @@ with h5py.File(file_path, 'r') as h5_file:
                 hdf5_group(item, indent + 4)
             elif isinstance(item, h5py.Dataset):
                 print(" " * indent + f"Dataset: {key}, Shape: {item.shape}")
-                # Skaler kontrolü
                 if item.shape == ():  
                     print(" " * (indent + 4) + f"Scalar value: {item[()]}")
                 else:  
