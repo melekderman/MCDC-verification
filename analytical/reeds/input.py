@@ -38,7 +38,7 @@ mcdc.source(
 mcdc.source(
     x=[5.0, 6.0],
     isotropic=True,
-    prob=1
+    prob=0.5
 )
 # =============================================================================
 # Set tally, setting, and run mcdc
@@ -47,12 +47,12 @@ mcdc.source(
 #Tally
 mcdc.tally.mesh_tally(
     scores=["flux"],
-    x=np.linspace(0.0, 8.0, 41),
+    x=np.linspace(0.0, 8.0, 81),
     mu=np.linspace(-1.0, 1.0, 9)
 )
 
 #Setting
-mcdc.setting(N_particle=10000, N_batch=20)
+mcdc.setting(N_particle=10000, N_batch=30)
 
 #Run
 mcdc.run()
