@@ -21,7 +21,7 @@ with np.load("../../data/MGXS-SHEM361.npz") as data:
     E = data["E"]
     v = data["v"]
     lamd = data["lamd"]
-SigmaT += SigmaC * 0.28
+SigmaT += SigmaC * 0.5
 
 # Matrix and RHS source
 A = np.zeros([G + J, G + J])
