@@ -1,7 +1,9 @@
 import numpy as np
-import matplotlib.pyplot as plt
 
-import numpy as np
+# Warsa, J.S., "Analytical SN solutions in heterogeneous slabs, using symbolic algebra computer programs" 
+# Ann. Nucl. Energy, 29(7), 851-874 (2002). DOI: 10.1016/S0306-4549(01)00080-9
+
+# reference equations
 
 def reference():
     def phi1(x):
@@ -55,6 +57,8 @@ def reference():
     x_values = []
     phi_values = []
 
+    #append for regions
+
     for x in np.arange(0, 8.1, 0.1):
         x_values.append(x)
         if x < 2:
@@ -71,4 +75,4 @@ def reference():
     for x, phi in zip(x_values, phi_values):
         print(f"x = {x:.1f}, phi = {phi:.16f}")
         
-    return x_values, phi_values
+    return np.array(x_values), np.array(phi_values)

@@ -4,7 +4,8 @@ import numpy as np
 # =============================================================================
 # Set model
 # =============================================================================
-# Reed's problem
+# Four slab layers with different materials
+# Based on William H. Reed, NSE (1971), 46:2, 309-314, DOI: 10.13182/NSE46-309
 
 #Set materials
 m1 = mcdc.material(capture=np.array([50.0]), scatter=np.array([[0.0]]))
@@ -25,14 +26,14 @@ c2 = mcdc.cell(+s2 & -s3, m2)
 c3 = mcdc.cell(+s3 & -s4, m3)
 c4 = mcdc.cell(+s4 & -s5, m4)
 
-
 # =============================================================================
 # Set source
 # =============================================================================
+
 mcdc.source(
     x=[0.0, 2.0],
     isotropic=True,
-    prob=50
+    prob=50.0
 )
 
 mcdc.source(
@@ -40,6 +41,7 @@ mcdc.source(
     isotropic=True,
     prob=0.5
 )
+
 # =============================================================================
 # Set tally, setting, and run mcdc
 # =============================================================================
