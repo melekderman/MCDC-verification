@@ -50,7 +50,6 @@ mcdc.source(
 mcdc.tally.mesh_tally(
     scores=["flux"],
     x=np.linspace(0.0, 8.0, 81),
-    mu=np.linspace(-1.0, 1.0, 9)
 )
 
 #Setting
