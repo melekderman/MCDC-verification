@@ -16,7 +16,6 @@ N_particle_list = np.logspace(N_min, N_max, N)
 # Reference solution
 with h5py.File("output_%i.h5" % (int(N_particle_list[0])), "r") as f:
     x = f["tallies/mesh_tally_0/grid/x"][:]
-    mu = f["tallies/mesh_tally_0/grid/mu"][:]
 _, phi_ref = reference()
 
 # Error containers
@@ -31,19 +30,10 @@ for k, N_particle in enumerate(N_particle_list):
     # Get results
     with h5py.File("output_%i.h5" % (int(N_particle)), "r") as f:
         x = f["tallies/mesh_tally_0/grid/x"][:]
-        mu = f["tallies/mesh_tally_0/grid/mu"][:]
-        N = len(mu) - 1
         I = len(x) - 1
         dx = x[1:] - x[:-1]
-        dmu = mu[1:] - mu[:-1]
 
-        psi = f["tallies/mesh_tally_0/flux/mean"][:]
-        psi = np.transpose(psi)
-    
-    # Scalar flux
-    phi = np.zeros(I)
-    for i in range(N):
-        phi[i] += np.sum(psi[i, :])
+        phi = f["tallies/mesh_tally_0/flux/mean"][:]
 
     # Normalize
     phi = (phi * 100) / dx
