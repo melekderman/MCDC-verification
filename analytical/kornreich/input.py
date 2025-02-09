@@ -3,7 +3,6 @@ import h5py
 
 import mcdc
 
-
 # =========================================================================
 # Set model
 # =========================================================================
@@ -11,6 +10,7 @@ import mcdc
 # DOI: 10.1016/j.anucene.2004.03.012
 
 # Set materials
+# Both regions have a total xs of 1.0
 m1 = mcdc.material(
     capture=np.array([0.0]),
     scatter=np.array([[0.9]]),
@@ -44,37 +44,15 @@ mcdc.source(x=[0.0, 2.5], isotropic=True)
 # =========================================================================
 
 # Tally
-x = np.array(
-    [
-        0.0,
-        0.15,
-        0.3,
-        0.45,
-        0.6,
-        0.75,
-        0.9,
-        1.05,
-        1.2,
-        1.35,
-        1.5,
-        1.6,
-        1.7,
-        1.8,
-        1.9,
-        2,
-        2.1,
-        2.2,
-        2.3,
-        2.4,
-        2.5,
-    ]
-)
-scores = ["flux"]
-mcdc.tally.mesh_tally(scores=scores, x=x)
+x1 = np.arange(0, 1.6, 0.15)
+x2 = np.arange(1.6, 2.51, 0.1)
+x = np.concatenate((x1, x2))
+
+mcdc.tally.mesh_tally(scores=["flux"], x=x)
 
 # Setting
-mcdc.setting(N_particle=100, progress_bar=False, census_bank_buff=2.0)
-mcdc.eigenmode(N_inactive=1, N_active=2, gyration_radius="only-x")
+mcdc.setting(N_particle=1000)
+mcdc.eigenmode(N_inactive=10, N_active=20)
 
 # Run
 mcdc.run()
