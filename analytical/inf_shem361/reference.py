@@ -9,7 +9,7 @@ def reference():
         SigmaS = data["SigmaS"]
         nuSigmaF = data["nuSigmaF"]
         G = data["G"]
-    SigmaT += SigmaC * 0.7
+    SigmaT += SigmaC * 0.5
 
     A = np.diag(SigmaT) - SigmaS - nuSigmaF
     Q = np.zeros(G)

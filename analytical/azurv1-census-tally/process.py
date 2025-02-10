@@ -37,9 +37,15 @@ for i, N_particle in enumerate(N_particle_list):
     N_batch = 10
     for i_census in range(N_census):
         for i_batch in range(N_batch):
-            with h5py.File("output_%i-batch_%i-census_%i.h5" % (int(N_particle), i_batch, i_census), "r") as f:
-                phi[5*i_census : 5*i_census+5, :] += f["tallies/mesh_tally_0/flux/score"][:]
-        phi[5*i_census : 5*i_census + 5] /= N_batch
+            with h5py.File(
+                "output_%i-batch_%i-census_%i.h5"
+                % (int(N_particle), i_batch, i_census),
+                "r",
+            ) as f:
+                phi[5 * i_census : 5 * i_census + 5, :] += f[
+                    "tallies/mesh_tally_0/flux/score"
+                ][:]
+        phi[5 * i_census : 5 * i_census + 5] /= N_batch
 
     # Normalize
     for k in range(K):
