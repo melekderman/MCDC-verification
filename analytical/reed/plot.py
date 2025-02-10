@@ -20,7 +20,6 @@ with h5py.File(output, "r") as f:
 # Normalize
 phi, phi_sd = phi / dx, phi_sd / dx
 x_ref, phi_ref = reference()
-print(phi_ref)
 
 # Flux - spatial average
 plt.plot(x_mid, phi, "-b", label="MC")
