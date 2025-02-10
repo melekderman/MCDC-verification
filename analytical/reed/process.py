@@ -35,9 +35,5 @@ for k, N_particle in enumerate(N_particle_list):
     error[k] = tool.rerror(phi, phi_ref)
     error_max[k] = tool.rerror_max(phi, phi_ref)
 
-# Normalize
-print(f"phi_before {phi}")
-phi /= dx
-
 # Plot
 tool.plot_convergence("reed_flux", N_particle_list, error, error_max)
