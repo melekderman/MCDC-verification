@@ -182,19 +182,16 @@ def transport(slab):
 
     print(source_iterations)
 
-import numpy as np
-
 def get_values(slab):
-    bin_x = []
-    bin_phi = []
+
+    slab_y_values = (slab.scalar_flux[0, :] + slab.scalar_flux[1, :]) / 2
     slab_x_values = np.append(0, slab.dx)
     slab_x_values = np.cumsum(slab_x_values)
-    bin_x = (slab_x_values[:-1] + slab_x_values[1:]) / 2
-    bin_phi = (slab.scalar_flux[:-1] + slab.scalar_flux[1:]) / 2
+    slab_x_values_cell = (slab_x_values[:-1] + slab_x_values[1:]) / 2
+    bin_x = slab_x_values_cell.reshape(-1, 10).mean(axis=1)
+    bin_phi = slab_y_values.reshape(-1, 10).mean(axis=1)
 
     np.savez("reference.npz", x=bin_x, phi=bin_phi)
-
-    
 
 def reeds_problem():
     l1 = 2
@@ -202,8 +199,8 @@ def reeds_problem():
     l3 = 2
     l4 = 1
     l5 = 2
-    dx = 0.1
-    num_angles = 8
+    dx = 0.01
+    num_angles = 64
 
     slab = Slab(num_angles=num_angles, left_boundary='reflecting', right_boundary='vacuum')
     slab.create_region(material_type='r1', length=l1, num_cells=l1/dx, x_left=0, total_xs=50, scatter_xs=0.0, source=50)
@@ -214,6 +211,5 @@ def reeds_problem():
 
     transport(slab)
     get_values(slab)
-
 
 reeds_problem()

@@ -22,7 +22,7 @@ phi_sd = phi_sd / dx * 100
 # Reference solution
 data = np.load("reference.npz")
 x_ref = data["x"]
-phi_ref = data["phi"][0,:]
+phi_ref = data["phi"]
 
 # Flux - spatial average
 plt.plot(x_mid, phi, "-b", label="MC")

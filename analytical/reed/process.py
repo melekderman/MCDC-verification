@@ -13,7 +13,8 @@ N_particle_list = np.logspace(N_min, N_max, N)
 
 # Reference solution
 data = np.load("reference.npz")
-phi_ref = data["phi"][0,:]
+x_ref = data["x"]
+phi_ref = data["phi"]
 
 # Error containers
 error = np.zeros(len(N_particle_list))
@@ -28,7 +29,6 @@ for k, N_particle in enumerate(N_particle_list):
         phi = f["tallies/mesh_tally_0/flux/mean"][:]
     # Normalize
     phi = phi / dx * 100
-
 
     # Get error
     error[k] = tool.rerror(phi, phi_ref)
