@@ -8,22 +8,17 @@ azurv1-census:
     logN_max: 7
     N_runs: 7
 
+azurv1-census-tally:
+    logN_min: 4
+    logN_max: 6
+    N_runs: 7
+
 azurv1_sub:
     logN_min: 5
     logN_max: 7
     N_runs: 7
 
-azurv1_sub-census:
-    logN_min: 5
-    logN_max: 7
-    N_runs: 7
-
 azurv1_super:
-    logN_min: 5
-    logN_max: 7
-    N_runs: 7
-
-azurv1_super-census:
     logN_min: 5
     logN_max: 7
     N_runs: 7
@@ -34,11 +29,6 @@ slab_absorbium:
     N_runs: 7
 
 slab_isobeam_td:
-    logN_min: 5
-    logN_max: 7
-    N_runs: 7
-
-slab_isobeam_td-census:
     logN_min: 5
     logN_max: 7
     N_runs: 7

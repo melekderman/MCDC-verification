@@ -9,7 +9,7 @@ import numpy as np
 
 # Load material data
 with np.load("../../data/MGXS-SHEM361.npz") as data:
-    SigmaC = data["SigmaC"] * 1.7  # /cm
+    SigmaC = data["SigmaC"] * 1.5  # /cm
     SigmaS = data["SigmaS"]
     SigmaF = data["SigmaF"]
     nu_p = data["nu_p"]
@@ -54,7 +54,7 @@ source = mcdc.source(energy=energy)
 mcdc.tally.mesh_tally(scores=["flux"], g="all")
 
 # Setting
-mcdc.setting(N_particle=100, N_batch=10, active_bank_buff=1000)
+mcdc.setting(N_particle=100, active_bank_buff=1000)
 
 # Run
 mcdc.run()
