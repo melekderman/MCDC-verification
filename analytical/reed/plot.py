@@ -1,7 +1,8 @@
 import matplotlib.pyplot as plt
-import numpy as np
 import h5py
 import sys
+
+from reference import reference
 
 # Reference solution
 output = sys.argv[1]
@@ -17,12 +18,8 @@ with h5py.File(output, "r") as f:
     phi_sd = f["tallies/mesh_tally_0/flux/sdev"][:]
 
 # Normalize
-phi = phi / dx * 100
-phi_sd = phi_sd / dx * 100
-# Reference solution
-data = np.load("reference.npz")
-x_ref = data["x"]
-phi_ref = data["phi"]
+phi, phi_sd = phi / dx, phi_sd / dx
+x_ref, phi_ref = reference()
 
 # Flux - spatial average
 plt.plot(x_mid, phi, "-b", label="MC")
