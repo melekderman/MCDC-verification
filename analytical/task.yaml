@@ -53,3 +53,7 @@ reed:
     logN_max: 7
     N_runs: 7
 
+kornreich:
+    logN_min: 5
+    logN_max: 7
+    N_runs: 7

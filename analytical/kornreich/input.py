@@ -44,39 +44,14 @@ mcdc.source(x=[0.0, 2.5], isotropic=True)
 # =========================================================================
 
 # Tally
-x = np.array(
-    [
-        0.0,
-        0.15,
-        0.3,
-        0.45,
-        0.6,
-        0.75,
-        0.9,
-        1.05,
-        1.2,
-        1.35,
-        1.5,
-        1.6,
-        1.7,
-        1.8,
-        1.9,
-        2,
-        2.1,
-        2.2,
-        2.3,
-        2.4,
-        2.5,
-    ]
-)
+x = np.array([0.0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9, 1.05, 1.2, 1.35, 1.5, 1.6, 1.7,
+              1.8, 1.9, 2, 2.1, 2.2, 2.3, 2.4, 2.5,])
 scores = ["flux"]
 mcdc.tally.mesh_tally(scores=scores, x=x)
 
 # Setting
-mcdc.setting(
-    N_particle=100, progress_bar=False, census_bank_buff=2.0, source_bank_buff=2.0
-)
-mcdc.eigenmode(N_inactive=1, N_active=2, gyration_radius="only-x")
+mcdc.setting(N_particle=1000, progress_bar=False, census_bank_buff=2.0, source_bank_buff=2.0)
+mcdc.eigenmode(N_inactive=20, N_active=50, gyration_radius="only-x")
 
 # Run
 mcdc.run()
