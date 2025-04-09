@@ -1,4 +1,3 @@
-from reference import reference
 import numpy as np
 import h5py
 import sys
@@ -13,8 +12,8 @@ N = int(sys.argv[3])
 N_particle_list = np.logspace(N_min, N_max, N)
 
 # Reference solution
-#with h5py.File("output_%i.h5" % (int(N_particle_list[0])), "r") as f:
-x_ref, phi_ref = reference()
+data = np.load("reference.npz")
+phi_ref = data["phi"]
 
 # Error containers
 error = np.zeros(len(N_particle_list))
