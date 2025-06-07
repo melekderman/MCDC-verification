@@ -1,9 +1,6 @@
-from math import log10
-
 import numpy as np
 
 import openmc
-import openmc.mgxs
 
 
 ###############################################################################
@@ -102,6 +99,7 @@ time = np.linspace(0.0, 200.0, 101)
 
 # Create a mesh filter that can be used in a tally
 time_mesh_filter = openmc.TimedMeshFilter(mesh, time)
+time_filter = openmc.TimeFilter(time)
 
 # Now use the mesh filter in a tally and indicate what scores are desired
 mesh_tally = openmc.Tally(name="flux")
@@ -109,6 +107,11 @@ mesh_tally.filters = [time_mesh_filter]
 mesh_tally.estimator = "tracklength"
 mesh_tally.scores = ["flux"]
 
+density_tally = openmc.Tally(name="density")
+density_tally.filters = [time_filter]
+density_tally.estimator = "tracklength"
+density_tally.scores = ["inverse-velocity"]
+
 # Instantiate a Tallies collection and export to XML
-tallies = openmc.Tallies([mesh_tally])
+tallies = openmc.Tallies([mesh_tally, density_tally])
 tallies.export_to_xml()
