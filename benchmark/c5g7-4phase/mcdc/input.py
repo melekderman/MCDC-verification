@@ -336,27 +336,19 @@ source = mcdc.source(
 # =============================================================================
 
 # Tally
-t_grid = np.linspace(0.0, 20.0, 201)
-mcdc.tally.mesh_tally(scores=["fission"], t=t_grid)
-mcdc.tally.mesh_tally(
-    scores=["fission"],
-    x=np.linspace(0.0, pitch * 17 * 2, 17 * 2 + 1),
-    y=np.linspace(-pitch * 17 * 2, 0.0, 17 * 2 + 1),
-    z=np.linspace(-(core_height / 2), (core_height / 2), int(math.ceil(core_height / pitch)) + 1),
-    t=t_grid
-)
-mcdc.tally.mesh_tally(
-    scores=["flux"],
-    x=np.linspace(0.0, pitch * 17 * 3, 17 * 3 + 1),
-    y=np.linspace(-pitch * 17 * 3, 0.0, 17 * 3 + 1),
-    z=np.linspace(-(core_height / 2 + reflector_thickness), (core_height / 2 + reflector_thickness), int(math.ceil((core_height + 2.0 * reflector_thickness) / pitch)) + 1),
-    g=np.array([-0.5, 4.5, 6.5]),
-    t=t_grid
-)
-mcdc.time_census(np.linspace(0.0, 20.0, 4 + 1)[1:], tally_frequency=50)
+Nt = 200
+Nx = 17 * 2
+Ny = 17 * 2
+Nz = 17 * 6
+t = np.linspace(0.0, 20.0, Nt + 1)
+x = np.linspace(0.0, pitch * 17 * 2, Nx + 1)
+y = np.linspace(-pitch * 17 * 2, 0.0, Ny + 1)
+z = np.linspace(-core_height / 2, core_height / 2, Nz + 1)
+mcdc.tally.mesh_tally(scores=["fission"], t=t)
+mcdc.tally.mesh_tally(scores=["fission"], x=x, y=y, z=z, t=t)
 
 # Setting
-mcdc.setting(N_particle=1e5, N_batch=30, active_bank_buff=10000, census_bank_buff=1000.0, source_bank_buff=1000.0)
+mcdc.setting(N_particle=1e5, N_batch=30, active_bank_buff=10000)
 
 # Run
 mcdc.run()
