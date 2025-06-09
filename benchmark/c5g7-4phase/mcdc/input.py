@@ -45,7 +45,7 @@ reflector_thickness = 21.42
 # Control rod banks fractions
 #   All out: 0.0
 #   All in : 1.0
-cr1 = np.array([1.0, 1.0, 0.865, 1.0])
+cr1 = np.array([1.0, 1.0, 0.853, 1.0])
 cr1_t = np.array([0.0, 10.0, 15.0, 15.0 + 1.0 - cr1[-2]])
 
 cr2 = np.array([1.0, 1.0, 0.0, 0.0, 0.8])
@@ -54,8 +54,8 @@ cr2_t = np.array([0.0, 5.0, 10.0, 15.0, 15.8])
 cr3 = np.array([0.75, 0.75, 1.0])
 cr3_t = np.array([0.0, 15.0, 15.25])
 
-cr4 = np.array([1.0, 1.0, 0.3, 0.3, 1.0])
-cr4_t = np.array([0.0, 5.0, 8.5, 15.0, 15.7])
+cr4 = np.array([1.0, 1.0, 0.4, 0.4, 1.0])
+cr4_t = np.array([0.0, 5.0, 5.0 + (cr4[1] - cr4[2]) / 2 * 10, 15.0, 15.0 + 1.0 - cr4[-2]])
 
 # Tips of the control rod banks
 cr1_bottom = core_height * (0.5 - cr1)
@@ -328,7 +328,11 @@ energy = np.zeros(7)
 energy[0] = 1.0
 
 source = mcdc.source(
-    point=[pitch * 17 / 2, -pitch * 17 / 2, 0.0], time=[0.0, 15.0], energy=energy
+    x=np.array([pitch * 17 * 3 / 2] * 2) + np.array([-pitch/2, + pitch/2]),
+    y=np.array([-pitch * 17 * 3 / 2] * 2) + np.array([-pitch/2, + pitch/2]), 
+    z=[-core_height/2, core_height/2],
+    time=[0.0, 15.0],
+    energy=energy
 )
 
 # =============================================================================
@@ -348,7 +352,7 @@ mcdc.tally.mesh_tally(scores=["fission"], t=t)
 mcdc.tally.mesh_tally(scores=["fission"], x=x, y=y, z=z, t=t)
 
 # Setting
-mcdc.setting(N_particle=1e5, N_batch=30, active_bank_buff=10000)
+mcdc.setting(N_particle=1e6, N_batch=30, active_bank_buff=10000)
 
 # Run
 mcdc.run()
