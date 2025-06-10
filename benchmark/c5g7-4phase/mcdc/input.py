@@ -322,7 +322,8 @@ mcdc.universe(
 # =============================================================================
 # Set source
 # =============================================================================
-# In the center of Assembly one, at highest energy, for the first 15 seconds
+# Throughout the active center pin of Assembly four, at highest energy, 
+# for the first 15 seconds
 
 energy = np.zeros(7)
 energy[0] = 1.0
