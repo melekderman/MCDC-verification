@@ -6,3 +6,4 @@ output*
 results
 *.core
 *xml
+*DS_Store

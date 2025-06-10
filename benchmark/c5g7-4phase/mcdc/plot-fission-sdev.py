@@ -7,8 +7,10 @@ import shutil
 
 # Get results
 with h5py.File('output.h5', 'r') as f:
-    fission_total = f['tallies/mesh_tally_0/fission/sdev'][()]
-    fissions = f['tallies/mesh_tally_1/fission/sdev'][()]
+    fission_total = f['tallies/mesh_tally_0/fission/mean'][()]
+    fissions = f['tallies/mesh_tally_1/fission/mean'][()]
+    fission_total_sd = f['tallies/mesh_tally_0/fission/sdev'][()]
+    fissions_sd = f['tallies/mesh_tally_1/fission/sdev'][()]
     x = f['tallies/mesh_tally_1/grid/x'][()]
     y = f['tallies/mesh_tally_1/grid/y'][()]
     z = f['tallies/mesh_tally_1/grid/z'][()]
@@ -20,6 +22,12 @@ XY_X, XY_Y = np.meshgrid(x, y, indexing='ij')
 XZ_X, XZ_Z = np.meshgrid(x, z, indexing='ij')
 YZ_Y, YZ_Z = np.meshgrid(y, z, indexing='ij')
 
+# Relative stdevs
+fission_total_sd /= fission_total
+fissions_sd[fissions == 0.0] = 0.0
+non_zeros = fissions != 0.0
+fissions_sd[non_zeros] /= fissions[non_zeros]
+
 # Create clean folder for output figures
 # Check if the folder exists
 if os.path.exists('fission-sdev'):
@@ -29,12 +37,12 @@ os.makedirs('fission-sdev')  # Create a new folder
 # Iterate over time step and create figures
 N = len(fissions)
 for i in range(N):
-    fission = fissions[i]
+    fission_sd = fissions_sd[i]
 
     # Calculate fission averages
-    fission_x = np.average(fission, axis=0)
-    fission_y = np.average(fission, axis=1)
-    fission_z = np.average(fission, axis=2)
+    fission_x_sd = np.average(fission_sd, axis=0)
+    fission_y_sd = np.average(fission_sd, axis=1)
+    fission_z_sd = np.average(fission_sd, axis=2)
 
     # Plot
     fig = plt.figure(figsize=(8, 5))
@@ -46,23 +54,23 @@ for i in range(N):
     ax4 = fig.add_subplot(gs[:, 2])  # Entire third column
 
     # Total fission curve
-    ax1.plot(t_mid, fission_total, 'b')
+    ax1.plot(t_mid, fission_total_sd, 'b')
     ax1.set_yscale('log')
-    ax1.set_ylabel('Std. dev')
+    ax1.set_ylabel('Relative sdev.')
     ax1.set_xlabel('Time')
     ax1.set_title('Total fission rate')
     # Total fission point
-    ax1.plot(t_mid[i], fission_total[i], 'ro', fillstyle='none')
+    ax1.plot(t_mid[i], fission_total_sd[i], 'ro', fillstyle='none')
 
     # XY fission
-    ax2.pcolormesh(XY_X, XY_Y, fission_z)
+    ax2.pcolormesh(XY_X, XY_Y, fission_z_sd)
     ax2.set_aspect('equal')
     ax2.set_xlabel(r'$x$')
     ax2.set_ylabel(r'$y$')
     ax2.set_title('Fission-XY')
 
     # XZ fission
-    ax3.pcolormesh(XZ_X, XZ_Z, fission_y)
+    ax3.pcolormesh(XZ_X, XZ_Z, fission_y_sd)
     ax3.set_aspect('equal')
     ax3.set_xlabel(r'$x$')
     ax3.set_ylabel(r'$z$')
@@ -71,12 +79,12 @@ for i in range(N):
     ax3.set_position([pos.x0 + 0.02, pos.y0, pos.width, pos.height])  # shift right by 0.02
 
     # YZ fission
-    ax4.pcolormesh(YZ_Y, YZ_Z, fission_x)
+    ax4.pcolormesh(YZ_Y, YZ_Z, fission_x_sd)
     ax4.set_aspect('equal')
     ax4.set_xlabel(r'$y$')
     ax4.set_ylabel(r'$z$')
     ax4.set_title('Fission-YZ')
 
-    plt.suptitle('MC/DC result - Fission rate standard deviation')
+    plt.suptitle('MC/DC result - Fission Rate Relative Sdev.')
     plt.savefig(f"fission-sdev/figure_{i:03}.png", dpi=300, bbox_inches='tight', pad_inches=0)
     plt.close()
