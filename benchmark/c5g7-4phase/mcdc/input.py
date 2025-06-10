@@ -45,7 +45,7 @@ reflector_thickness = 21.42
 # Control rod banks fractions
 #   All out: 0.0
 #   All in : 1.0
-cr1 = np.array([1.0, 1.0, 0.853, 1.0])
+cr1 = np.array([1.0, 1.0, 0.89, 1.0])
 cr1_t = np.array([0.0, 10.0, 15.0, 15.0 + 1.0 - cr1[-2]])
 
 cr2 = np.array([1.0, 1.0, 0.0, 0.0, 0.8])
@@ -54,7 +54,7 @@ cr2_t = np.array([0.0, 5.0, 10.0, 15.0, 15.8])
 cr3 = np.array([0.75, 0.75, 1.0])
 cr3_t = np.array([0.0, 15.0, 15.25])
 
-cr4 = np.array([1.0, 1.0, 0.4, 0.4, 1.0])
+cr4 = np.array([1.0, 1.0, 0.5, 0.5, 1.0])
 cr4_t = np.array([0.0, 5.0, 5.0 + (cr4[1] - cr4[2]) / 2 * 10, 15.0, 15.0 + 1.0 - cr4[-2]])
 
 # Tips of the control rod banks
