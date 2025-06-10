@@ -78,10 +78,10 @@ cr1_velocities = np.zeros((len(cr1) - 1, 3))
 cr2_velocities = np.zeros((len(cr2) - 1, 3))
 cr3_velocities = np.zeros((len(cr3) - 1, 3))
 cr4_velocities = np.zeros((len(cr4) - 1, 3))
-cr1_velocities[:, 2] = (cr1[1:] - cr1[:-1]) / cr1_durations * core_height
-cr2_velocities[:, 2] = (cr2[1:] - cr2[:-1]) / cr2_durations * core_height
-cr3_velocities[:, 2] = (cr3[1:] - cr3[:-1]) / cr3_durations * core_height
-cr4_velocities[:, 2] = (cr4[1:] - cr4[:-1]) / cr4_durations * core_height
+cr1_velocities[:, 2] = (cr1_top[1:] - cr1_top[:-1]) / cr1_durations
+cr2_velocities[:, 2] = (cr2_top[1:] - cr2_top[:-1]) / cr2_durations
+cr3_velocities[:, 2] = (cr3_top[1:] - cr3_top[:-1]) / cr3_durations
+cr4_velocities[:, 2] = (cr4_top[1:] - cr4_top[:-1]) / cr4_durations
 
 # Surfaces
 cy = mcdc.surface("cylinder-z", center=[0.0, 0.0], radius=radius)
@@ -329,7 +329,7 @@ energy[0] = 1.0
 
 source = mcdc.source(
     x=np.array([pitch * 17 * 3 / 2] * 2) + np.array([-pitch/2, + pitch/2]),
-    y=np.array([-pitch * 17 * 3 / 2] * 2) + np.array([-pitch/2, + pitch/2]), 
+    y=np.array([-pitch * 17 * 3 / 2] * 2) + np.array([-pitch/2, + pitch/2]),
     z=[-core_height/2, core_height/2],
     time=[0.0, 15.0],
     energy=energy
