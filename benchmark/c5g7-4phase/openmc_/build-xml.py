@@ -34,6 +34,7 @@ def set_xs_data(name, mat):
     xsdata.set_inverse_velocity(1.0/speed)
     xsdata.set_decay_rate(decay)
 
+    SigmaS = SigmaS.transpose()
     SigmaA = SigmaC + SigmaF
     SigmaS_total = np.sum(SigmaS, 1)
     SigmaT = SigmaA + SigmaS_total
@@ -444,9 +445,9 @@ for t in np.linspace(0.0, 20.0, 81):
 settings = openmc.Settings()
 settings.run_mode = "fixed source"
 settings.energy_mode = "multi-group"
-settings.batches = 3
-settings.particles = 10000
-settings.cutoff = {"time_neutron": 10}
+settings.batches = 30
+settings.particles = 1000000
+settings.cutoff = {"time_neutron": 20}
 
 # Create an initial uniform spatial source distribution over fissionable zones
 space = openmc.stats.CartesianIndependent(
@@ -455,7 +456,7 @@ space = openmc.stats.CartesianIndependent(
     z=openmc.stats.Uniform(-core_height/2, core_height/2)
 )
 energy = openmc.stats.Discrete([1.4e7], [1.0])
-time = openmc.stats.Uniform(0.0, 10.0)
+time = openmc.stats.Uniform(0.0, 20.0)
 settings.source = openmc.IndependentSource(space=space, time=time, energy=energy)
 settings.output = {"tallies": False}
 settings.export_to_xml()
@@ -477,15 +478,13 @@ time = np.linspace(0.0, 20.0, Nt + 1)
 
 # Create a mesh filter that can be used in a tally
 time_filter = openmc.TimeFilter(time)
-#time_mesh_filter = openmc.TimedMeshFilter(mesh, time)
+time_mesh_filter = openmc.TimedMeshFilter(mesh, time)
 
 # Now use the mesh filter in a tally and indicate what scores are desired
-'''
 mesh_tally = openmc.Tally(name="pincell fission")
 mesh_tally.filters = [time_mesh_filter]
 mesh_tally.estimator = "tracklength"
 mesh_tally.scores = ["fission"]
-'''
 
 tally = openmc.Tally(name="fission")
 tally.filters = [time_filter]
@@ -493,6 +492,5 @@ tally.estimator = "tracklength"
 tally.scores = ["fission"]
 
 # Instantiate a Tallies collection and export to XML
-#tallies = openmc.Tallies([mesh_tally, tally])
-tallies = openmc.Tallies([tally])
+tallies = openmc.Tallies([mesh_tally, tally])
 tallies.export_to_xml()
