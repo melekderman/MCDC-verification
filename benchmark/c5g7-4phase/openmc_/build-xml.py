@@ -427,17 +427,6 @@ root_universe = openmc.Universe(
 geometry = openmc.Geometry(root_universe)
 geometry.export_to_xml()
 
-'''
-for t in np.linspace(0.0, 20.0, 81):
-    #geometry.plot(width=(pitch*17*3,pitch*17*3), basis=('xy'), colors=colors, color_by='material', origin=(pitch*17*3/2, -pitch*17*3/2, 0.0), time=t, pixels=(1000,1000))
-    geometry.plot(
-        width=(pitch*17,core_height+2*reflector_thickness),
-        basis=('xz'), colors=colors, color_by='material',
-        origin=(pitch*17/2*3, -pitch*17/2*3, 0.0), time=t, pixels=(500,500))
-    plt.title('t = %.2f'%t)
-    plt.show()
-'''
-
 ###############################################################################
 # Define problem settings
 
@@ -456,7 +445,7 @@ space = openmc.stats.CartesianIndependent(
     z=openmc.stats.Uniform(-core_height/2, core_height/2)
 )
 energy = openmc.stats.Discrete([1.4e7], [1.0])
-time = openmc.stats.Uniform(0.0, 20.0)
+time = openmc.stats.Uniform(0.0, 15.0)
 settings.source = openmc.IndependentSource(space=space, time=time, energy=energy)
 settings.output = {"tallies": False}
 settings.export_to_xml()
