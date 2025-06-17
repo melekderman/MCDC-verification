@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 import numpy as np
 
-import openmc
+import openmc, sys
 
 
 ###############################################################################
@@ -435,7 +435,7 @@ settings = openmc.Settings()
 settings.run_mode = "fixed source"
 settings.energy_mode = "multi-group"
 settings.batches = 30
-settings.particles = 1000000
+settings.particles = int(sys.argv[1])
 settings.cutoff = {"time_neutron": 20}
 
 # Create an initial uniform spatial source distribution over fissionable zones
