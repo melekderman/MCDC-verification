@@ -475,11 +475,6 @@ mesh_tally.filters = [time_mesh_filter]
 mesh_tally.estimator = "tracklength"
 mesh_tally.scores = ["fission"]
 
-tally = openmc.Tally(name="fission")
-tally.filters = [time_filter]
-tally.estimator = "tracklength"
-tally.scores = ["fission"]
-
 # Instantiate a Tallies collection and export to XML
-tallies = openmc.Tallies([mesh_tally, tally])
+tallies = openmc.Tallies([mesh_tally])
 tallies.export_to_xml()
