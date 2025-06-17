@@ -5,16 +5,15 @@ import numpy as np
 import os
 import shutil
 
-# Get results
-with h5py.File('output.h5', 'r') as f:
-    fission_total = f['tallies/mesh_tally_0/fission/mean'][()]
-    fissions = f['tallies/mesh_tally_1/fission/mean'][()]
-    fission_total_sd = f['tallies/mesh_tally_0/fission/sdev'][()]
-    fissions_sd = f['tallies/mesh_tally_1/fission/sdev'][()]
-    x = f['tallies/mesh_tally_1/grid/x'][()]
-    y = f['tallies/mesh_tally_1/grid/y'][()]
-    z = f['tallies/mesh_tally_1/grid/z'][()]
-    t = f['tallies/mesh_tally_1/grid/t'][()]
+# Get fission rates
+with h5py.File('output_0.h5', 'r') as f:
+    fissions = f['tallies/mesh_tally_0/fission/mean'][()]
+    fissions_sd = f['tallies/mesh_tally_0/fission/sdev'][()]
+
+    x = f['tallies/mesh_tally_0/grid/x'][()]
+    y = f['tallies/mesh_tally_0/grid/y'][()]
+    z = f['tallies/mesh_tally_0/grid/z'][()]
+    t = f['tallies/mesh_tally_0/grid/t'][()]
 
 # The grids
 t_mid = 0.5 * (t[:-1] + t[1:])
@@ -23,10 +22,13 @@ XZ_X, XZ_Z = np.meshgrid(x, z, indexing='ij')
 YZ_Y, YZ_Z = np.meshgrid(y, z, indexing='ij')
 
 # Relative stdevs
-fission_total_sd /= fission_total
 fissions_sd[fissions == 0.0] = 0.0
 non_zeros = fissions != 0.0
 fissions_sd[non_zeros] /= fissions[non_zeros]
+
+# Average relative stdev
+fission_sd_avg = np.average(fissions_sd, axis=(1,2,3))
+fission_sd_avg /= fission_sd_avg[0]
 
 # Create clean folder for output figures
 # Check if the folder exists
@@ -54,13 +56,13 @@ for i in range(N):
     ax4 = fig.add_subplot(gs[:, 2])  # Entire third column
 
     # Total fission curve
-    ax1.plot(t_mid, fission_total_sd, 'b')
+    ax1.plot(t_mid, fission_sd_avg, 'b')
     ax1.set_yscale('log')
-    ax1.set_ylabel('Relative sdev.')
+    ax1.set_ylabel('Average relative sdev')
     ax1.set_xlabel('Time')
-    ax1.set_title('Total fission rate')
+    ax1.set_title('Average relative sdev')
     # Total fission point
-    ax1.plot(t_mid[i], fission_total_sd[i], 'ro', fillstyle='none')
+    ax1.plot(t_mid[i], fission_sd_avg[i], 'ro', fillstyle='none')
 
     # XY fission
     ax2.pcolormesh(XY_X, XY_Y, fission_z_sd)

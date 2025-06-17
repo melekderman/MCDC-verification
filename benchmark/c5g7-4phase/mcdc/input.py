@@ -322,7 +322,7 @@ mcdc.universe(
 # =============================================================================
 # Set source
 # =============================================================================
-# Throughout the active center pin of Assembly four, at highest energy, 
+# Throughout the active center pin of Assembly four, at highest energy,
 # for the first 15 seconds
 
 energy = np.zeros(7)
@@ -349,7 +349,6 @@ t = np.linspace(0.0, 20.0, Nt + 1)
 x = np.linspace(0.0, pitch * 17 * 2, Nx + 1)
 y = np.linspace(-pitch * 17 * 2, 0.0, Ny + 1)
 z = np.linspace(-core_height / 2, core_height / 2, Nz + 1)
-mcdc.tally.mesh_tally(scores=["fission"], t=t)
 mcdc.tally.mesh_tally(scores=["fission"], x=x, y=y, z=z, t=t)
 
 # Setting
