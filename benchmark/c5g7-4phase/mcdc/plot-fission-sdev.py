@@ -6,7 +6,7 @@ import os
 import shutil
 
 # Get fission rates
-with h5py.File('output_0.h5', 'r') as f:
+with h5py.File('output_4.h5', 'r') as f:
     fissions = f['tallies/mesh_tally_0/fission/mean'][()]
     fissions_sd = f['tallies/mesh_tally_0/fission/sdev'][()]
 

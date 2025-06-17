@@ -6,7 +6,7 @@ import os
 import shutil
 
 # Get results
-with h5py.File('output_0.h5', 'r') as f:
+with h5py.File('output_4.h5', 'r') as f:
     fissions = f['tallies/mesh_tally_0/fission/mean'][()]
     x = f['tallies/mesh_tally_0/grid/x'][()]
     y = f['tallies/mesh_tally_0/grid/y'][()]
