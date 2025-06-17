@@ -7,3 +7,5 @@ results
 *.core
 *xml
 *DS_Store
+summary.h5
+mgxs.h5
