@@ -26,7 +26,6 @@ fissions_sd[non_zeros] /= fissions[non_zeros]
 
 # Average relative stdev
 fission_sd_avg = np.average(fissions_sd, axis=(1,2,3))
-fission_sd_avg /= fission_sd_avg[0]
 
 pitch = 1.26
 core_height = 128.52
