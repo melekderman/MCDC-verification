@@ -28,7 +28,6 @@ fissions_sd[non_zeros] /= fissions[non_zeros]
 
 # Average relative stdev
 fission_sd_avg = np.average(fissions_sd, axis=(1,2,3))
-fission_sd_avg /= fission_sd_avg[0]
 
 # Create clean folder for output figures
 # Check if the folder exists
