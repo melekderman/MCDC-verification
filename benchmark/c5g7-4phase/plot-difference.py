@@ -9,7 +9,7 @@ import shutil
 from matplotlib.colors import TwoSlopeNorm
 
 # Get results
-with h5py.File('mcdc/output_0.h5', 'r') as f:
+with h5py.File('mcdc/output_4.h5', 'r') as f:
     fissions_mcdc = f['tallies/mesh_tally_1/fission/mean'][()]
     x = f['tallies/mesh_tally_1/grid/x'][()]
     y = f['tallies/mesh_tally_1/grid/y'][()]
@@ -21,7 +21,7 @@ Nt = 200
 Nx = 17 * 2
 Ny = 17 * 2
 Nz = 17 * 6
-with openmc.StatePoint('openmc_/output_0.h5') as sp:
+with openmc.StatePoint('openmc_/output_4.h5') as sp:
     tally = sp.get_tally(name='pincell fission')
     fissions = tally.mean.reshape((Nt, Nz, Ny, Nx))
     fissions_openmc = np.swapaxes(fissions, 1, 3)
@@ -40,7 +40,6 @@ denom[zero_openmc] = fissions_mcdc[zero_openmc]
 idx = denom != 0.0
 diff[idx] = num[idx] / denom[idx]
 diff_avg = np.average(diff, axis=(1,2,3))
-diff_avg /= diff_avg[0]
 
 # The grids
 t_mid = 0.5 * (t[:-1] + t[1:])
