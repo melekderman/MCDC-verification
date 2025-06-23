@@ -10,11 +10,11 @@ from matplotlib.colors import TwoSlopeNorm
 
 # Get results
 with h5py.File('mcdc/output_4.h5', 'r') as f:
-    fissions_mcdc = f['tallies/mesh_tally_1/fission/mean'][()]
-    x = f['tallies/mesh_tally_1/grid/x'][()]
-    y = f['tallies/mesh_tally_1/grid/y'][()]
-    z = f['tallies/mesh_tally_1/grid/z'][()]
-    t = f['tallies/mesh_tally_1/grid/t'][()]
+    fissions_mcdc = f['tallies/mesh_tally_0/fission/mean'][()]
+    x = f['tallies/mesh_tally_0/grid/x'][()]
+    y = f['tallies/mesh_tally_0/grid/y'][()]
+    z = f['tallies/mesh_tally_0/grid/z'][()]
+    t = f['tallies/mesh_tally_0/grid/t'][()]
 
 # Get results
 Nt = 200
@@ -39,7 +39,7 @@ denom[zero_openmc] = fissions_mcdc[zero_openmc]
 #
 idx = denom != 0.0
 diff[idx] = num[idx] / denom[idx]
-diff_avg = np.average(diff, axis=(1,2,3))
+diff_avg = np.average(diff, axis=(1,2,3)) * 100.0 # in %
 
 # The grids
 t_mid = 0.5 * (t[:-1] + t[1:])
@@ -92,7 +92,7 @@ for i in range(N):
     # Total fission curve
     ax1.plot(t_mid, diff_avg, 'b')
     ax1.set_yscale('log')
-    ax1.set_ylabel('Avg. relative diff.')
+    ax1.set_ylabel('Avg. relative diff. (%)')
     ax1.set_xlabel('Time')
     ax1.set_title('Avg. relative diff.')
     # Total fission point

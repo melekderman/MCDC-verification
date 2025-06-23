@@ -24,8 +24,8 @@ fissions_sd[fissions == 0.0] = 0.0
 non_zeros = fissions != 0.0
 fissions_sd[non_zeros] /= fissions[non_zeros]
 
-# Average relative stdev
-fission_sd_avg = np.average(fissions_sd, axis=(1,2,3))
+# Average relative stdev (in %)
+fission_sd_avg = np.average(fissions_sd, axis=(1,2,3)) * 100.0
 
 pitch = 1.26
 core_height = 128.52
@@ -68,7 +68,7 @@ for i in range(N):
     # Total fission curve
     ax1.plot(t_mid, fission_sd_avg, 'b')
     ax1.set_yscale('log')
-    ax1.set_ylabel('Average relative sdev')
+    ax1.set_ylabel('Average relative sdev (%)')
     ax1.set_xlabel('Time')
     ax1.set_title('Average relative sdev')
     # Total fission point
